@@ -9,4 +9,8 @@ class Day2Test extends FunSuite {
   test("score all") {
     assertEquals(Day2.scoreAll(lines), 15691)
   }
+
+  test("score2 all") {
+    println(Day2.scoreAll2(lines))
+  }
 }

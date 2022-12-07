@@ -8,4 +8,11 @@ object Day1 {
   }
 
   def maxGroup(lines: Iterator[String]) = partitionBy(lines)(!_.isEmpty).map(chunk => chunk.map(_.toInt).sum).max
+
+  def maxGroup3(lines: Iterator[String]) = partitionBy(lines)(!_.isEmpty).map(chunk => chunk.map(_.toInt).sum)
+    .toList
+    .sorted
+    .reverse
+    .take(3)
+    .sum
 }
