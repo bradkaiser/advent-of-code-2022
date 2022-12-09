@@ -1,7 +1,5 @@
 package aoc
 
-import scala.util.control.Breaks.{break, breakable}
-
 object Day8 {
 
   def parse(lines: List[String]): Vector[Vector[Int]] = lines.map(s => s.map(_ - 0.toInt).toVector).toVector
