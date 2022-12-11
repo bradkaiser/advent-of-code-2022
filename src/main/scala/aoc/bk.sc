@@ -1,4 +1,6 @@
 
-val l = List (1,0,0)
 
-l.scan(0)(_ + _)
+val l = List(1,2,3,4)
+val m = List(5,6,7,8)
+
+l.take(3) ::: m

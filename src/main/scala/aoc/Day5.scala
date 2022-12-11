@@ -4,10 +4,12 @@ import scala.util.matching.Regex
 
 object Day5 {
 
-  def readInput(lines: List[String]) = {
+  def solve(lines: List[String]) = {
     val stacks = readHeader(lines)
     val commands = readCommands(lines.drop(10))
-    println(commands)
+    val updatedStacks = applyCommands(stacks, commands)
+
+    updatedStacks.map(_.head).mkString
   }
 
   def readHeader(lines: List[String]): Vector[List[Char]]= {
@@ -34,12 +36,34 @@ object Day5 {
     cmdPattern(n, from, to) = s
   } yield MoveCmd(n.toInt, from.toInt -1, to.toInt -1)
 
-  def applyCommands(stacks: Vector[List[Char]], cmds: List[MoveCmd]) = {
+  def move(from: List[Char], to: List[Char]) = (from.tail, from.head :: to)
+
+  def applyCommands(stacks: Vector[List[Char]], cmds: List[MoveCmd]) =
     cmds.foldLeft(stacks) { case (s, cmd) =>
-      ???
+      val from = s(cmd.from)
+      val to = s(cmd.to)
 
+      val (updatedFrom, updatedTo) = (1 to cmd.n).foldLeft((from, to)) { case ((from, to), _) => move(from, to) }
 
+      s.updated(cmd.from, updatedFrom).updated(cmd.to, updatedTo)
     }
+
+  def solve2(lines: List[String]) = {
+    val stacks = readHeader(lines)
+    val commands = readCommands(lines.drop(10))
+    val updatedStacks = applyCommands2(stacks, commands)
+
+    updatedStacks.map(_.head).mkString
   }
 
+  def applyCommands2(stacks: Vector[List[Char]], cmds: List[MoveCmd]) =
+    cmds.foldLeft(stacks) { case (s, cmd) =>
+      val from = s(cmd.from)
+      val to = s(cmd.to)
+
+      val updatedFrom = from.drop(cmd.n)
+      val updatedTo = from.take(cmd.n) ::: to
+
+      s.updated(cmd.from, updatedFrom).updated(cmd.to, updatedTo)
+    }
 }
