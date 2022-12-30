@@ -1,4 +1,6 @@
-val m = Map(1 -> 'a')
-val n = Map(1 -> 'b')
 
-1 / 0
+val boo = List(1)
+
+boo match {
+  case x :: remaining => println(remaining)
+}
